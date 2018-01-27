@@ -46,13 +46,22 @@ var app = {
 
   renderMessage: function(message) {
     var messages = $('#chats');
-    var node = $(`<div>${message.text}</div>`);
+    var text = message.text;
+    text = this.escape(text);
+    var node = $(`<div>${text}</div>`);
     messages.append(node);
   },
 
   renderRoom: function(roomName) {
     var rooms = $('#roomSelect');
+    roomName = this.escape(roomName);
     var roomNode = $(`<div>${roomName}</div>`);
     rooms.append(roomNode);
+  },
+  escape: function(string) {
+    string = string.replace('</', '&lt;&#47;');
+    string = string.replace('<', '&lt;');
+    string = string.replace('>', '&gt;');
+    return string;
   }
 };
