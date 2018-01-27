@@ -26,10 +26,20 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <form>
-        <input type="text">
-        <button>Post!</button>
-      </form>
+
+<div id='send'>
+<div class="submit">
+<form action="javascript:console.log('success');">
+  <div>
+    <input type="text" id="message">
+    <input type="submit">
+  </div>
+</form>
+</div>
+</div>
+<span></span>
+ 
+
       <select name="room">
         <option value="main">Main Chat</option>
         <option value="newroom">Create New Room</option>
@@ -47,5 +57,6 @@
     </div>
     <div id="roomSelect"></div>
     <div id="users"></div>
+<script>app.init();</script>
   </body>
 </html>

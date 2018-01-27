@@ -5,6 +5,17 @@ var app = {
     $('.username').click(function(){
       app.handleUsernameClick.apply(this);
     });
+    // $('#send .submit').on('submit', function() {
+    //   debugger;
+    //   app.handleSubmit();
+    // });
+    $('#send .submit').submit(function( event ) {
+      app.handleSubmit();
+    });
+    //     $('.postMessage').on('click', function() {
+    // console.log('this', this);
+    //       app.handleSubmit();
+    //     });
   },
 
   handleUsernameClick: function() {
@@ -18,13 +29,33 @@ var app = {
     });
   },
 
+  handleSubmit: function() {
+    // get text from input box
+    // debugger;
+    var text = $('#message').val();
+    // console.log('test');
+    // var name = 'moriah';
+    // name = name.replace('?username=', '');
+    // var roomname = 'main'; // NOTE TO SELF: edit later
+
+    var message = {
+      username: 'testname',
+      text: text,
+      roomname: 'testroom'
+    };
+    // call this.send with whatever was typed in
+    app.send(message);
+    
+  },
+
   send: function(message) {
     $.ajax({
     // This is the url you should use to communicate with the parse API server.
       url: this.server,
       type: 'POST',
+      // data: JSON.stringify(message),
       data: message,
-      contentType: 'application/json',
+      // contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent');
       },
