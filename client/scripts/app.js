@@ -1,8 +1,22 @@
 // YOUR CODE HERE:
 var app = {
   server: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
+  init: function() {
+    $('.username').click(function(){
+      app.handleUsernameClick.apply(this);
+    });
+  },
 
-  init: function() {},
+  handleUsernameClick: function() {
+    var userName = $(this).text();
+    var messages = $('.chat');
+    messages.map(function() {
+      var userString = $(this.children[0]).text();
+      if (userString === userName) {
+        $(this).css('font-weight', 'bold');
+      } 
+    });
+  },
 
   send: function(message) {
     $.ajax({
@@ -46,9 +60,12 @@ var app = {
 
   renderMessage: function(message) {
     var messages = $('#chats');
-    var text = message.text;
-    text = this.escape(text);
-    var node = $(`<div>${text}</div>`);
+    var username = this.escape(message.username);
+    var text = this.escape(message.text);
+
+    var node = $(`<div class="chat">${text}</div>`);
+    var userNode = $(`<div class="username">${username}</div>`);
+    node.prepend(userNode);
     messages.append(node);
   },
 
@@ -58,6 +75,7 @@ var app = {
     var roomNode = $(`<div>${roomName}</div>`);
     rooms.append(roomNode);
   },
+
   escape: function(string) {
     string = string.replace('</', '&lt;&#47;');
     string = string.replace('<', '&lt;');

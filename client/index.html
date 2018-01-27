@@ -26,8 +26,26 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <div id="roomSelect"></div>
+      <form>
+        <input type="text">
+        <button>Post!</button>
+      </form>
+      <select name="room">
+        <option value="main">Main Chat</option>
+        <option value="newroom">Create New Room</option>
+      </select>
     </div>
-    <div id="chats"></div>
+    <div id="chats">
+      <div class="chat">
+        <div class="username">Username</div>
+        This is a longer message that takes up some more space
+    </div>
+     <div class="chat">
+        <div class="username">Username2</div>
+        This is a longer message that takes up some more space
+      </div>
+    </div>
+    <div id="roomSelect"></div>
+    <div id="users"></div>
   </body>
 </html>
