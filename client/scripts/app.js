@@ -65,19 +65,25 @@ var app = {
   },
 
   fetch: function() {
-    $.ajax({
+    var dataStuff = $.ajax({
     // This is the url you should use to communicate with the parse API server.
       url: this.server,
       type: 'GET',
+      data: {order: '-createdAt'},
       contentType: 'application/json',
       success: function (data) {
-        console.log('chatterbox: Message received');
+        app.renderAllMessages(data);
+        setTimeout(function() {
+          app.renderAllMessages(data);
+        }, 200);
+        console.log(data);
       },
       error: function (data) {
         // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
         console.error('chatterbox: Failed to receive message', data);
       }
     });
+    return dataStuff;
   },
 
   clearMessages: function() {
@@ -87,10 +93,18 @@ var app = {
     }
   },
 
+  renderAllMessages: function(data) {
+    console.log('foo');
+    console.log(data.results[0]);
+    for (var i = 0; i < data.results.length; i++) {
+      app.renderMessage(data.results[i]);
+    }
+  },
+
   renderMessage: function(message) {
     var messages = $('#chats');
-    var username = this.escape(message.username);
-    var text = this.escape(message.text);
+    var username = _.escape(message.username);
+    var text = _.escape(message.text);
 
     var node = $(`<div class="chat">${text}</div>`);
     var userNode = $(`<div class="username">${username}</div>`);
@@ -100,7 +114,7 @@ var app = {
 
   renderRoom: function(roomName) {
     var rooms = $('#roomSelect');
-    roomName = this.escape(roomName);
+    roomName = _.escape(roomName);
     var roomNode = $(`<div>${roomName}</div>`);
     rooms.append(roomNode);
   },
