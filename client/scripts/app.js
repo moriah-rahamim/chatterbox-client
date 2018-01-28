@@ -1,21 +1,19 @@
 // YOUR CODE HERE:
+
+var memoizedSubmitListener = _.once( function() {
+  $('#send .submit').submit(function( event ) {
+    app.handleSubmit();
+  });
+});
+
 var app = {
   server: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
+
   init: function() {
-    $('.username').click(function(){
+    $('.username').click(function() {
       app.handleUsernameClick.apply(this);
     });
-    // $('#send .submit').on('submit', function() {
-    //   debugger;
-    //   app.handleSubmit();
-    // });
-    $('#send .submit').submit(function( event ) {
-      app.handleSubmit();
-    });
-    //     $('.postMessage').on('click', function() {
-    // console.log('this', this);
-    //       app.handleSubmit();
-    //     });
+    memoizedSubmitListener();
   },
 
   handleUsernameClick: function() {
